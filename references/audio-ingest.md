@@ -39,8 +39,11 @@ Once archived under its final name, this is the immutable Layer-1 source — nev
 Prefer Hermes' own `transcribe_audio()` (it honors the configured provider/model/language):
 
 ```python
+import os
 from tools.transcription_tools import transcribe_audio
-r = transcribe_audio(r"D:\res_wiki\raw\transcripts\<topic>.m4a")
+# WIKI_PATH = your wiki root (set in ~/.hermes/.env), e.g. D:\wiki on Windows
+audio = os.path.join(os.environ["WIKI_PATH"], "raw", "transcripts", "<topic>.m4a")
+r = transcribe_audio(audio)
 assert r["success"], r.get("error")
 text = r["transcript"]
 ```
@@ -51,8 +54,7 @@ call faster-whisper directly, which has no size cap:
 ```python
 from faster_whisper import WhisperModel
 m = WhisperModel("large-v3", device="auto", compute_type="auto")  # auto→CPU int8 if VRAM is full
-segments, info = m.transcribe(r"D:\res_wiki\raw\transcripts\<topic>.m4a",
-                              language="zh", beam_size=5)
+segments, info = m.transcribe(audio, language="zh", beam_size=5)  # `audio` from the snippet above
 text = " ".join(s.text.strip() for s in segments)
 # info.language, info.duration are available for the frontmatter
 ```
@@ -111,5 +113,5 @@ numbers, and acronyms. Set `confidence: medium` on pages built from a single tra
 quote in the transcript so the user can spot a misheard term.
 
 ## Windows paths
-Use native paths (`D:\res_wiki\raw\transcripts\…`) in all `write_file` / `read_file` /
+Use native paths (`<WIKI_PATH>\raw\transcripts\…`, where `<WIKI_PATH>` is your wiki root) in all `write_file` / `read_file` /
 `code_execution` calls — not bash `/d/…` paths.

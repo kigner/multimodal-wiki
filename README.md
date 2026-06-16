@@ -16,7 +16,23 @@ vision (screenshots) and whisper (audio) ingestion plus a stronger raw→Layer-2
 
 ## Prerequisites (the skill is instructions only — configure these yourself)
 
-1. **Vault path** — set `WIKI_PATH` (e.g. in `~/.hermes/.env`) to your wiki directory.
+1. **Vault path (`WIKI_PATH`)** — tell the skill where your wiki lives by setting `WIKI_PATH`
+   in your Hermes `.env`. Both the agent (image/text ingest, per `SKILL.md`) and the audio
+   transcription code read this one value, so it is the single source of truth for the vault root.
+   - **File location** — `<HERMES_HOME>/.env`:
+     - **Windows:** `%LOCALAPPDATA%\hermes\.env` (e.g. `C:\Users\<you>\AppData\Local\hermes\.env`)
+     - **macOS/Linux:** `~/.hermes/.env`
+   - **Add one line (no quotes):**
+     ```ini
+     WIKI_PATH=D:\wiki          # Windows
+     # WIKI_PATH=/home/you/wiki # macOS/Linux
+     ```
+   - **Do NOT wrap the path in double quotes.** The `.env` is parsed by python-dotenv, which
+     interprets backslash escapes inside `"..."` — so `"D:\temp"` would turn `\t` into a TAB and
+     break the path. Write it bare, or use forward slashes (`WIKI_PATH=D:/wiki`) to be safe.
+   - **Restart Hermes after editing `.env`** so the value is loaded into the environment. (A
+     `/reload` only re-applies Hermes' own known keys, not a custom one like `WIKI_PATH`.)
+
    First run: ask it to "create a wiki" and it builds `SCHEMA.md` / `index.md` / `log.md`
    + the `raw/` tree.
 

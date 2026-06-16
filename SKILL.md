@@ -376,7 +376,7 @@ When the user asks a question about the wiki's domain:
    Read each relevant page's `sources:` / `^[raw/...]` first to get the real
    raw-note filenames, put a numbered marker `[1]` after each claim, and end the
    answer with a `## Sources` block — one line per marker, formatted as:
-     `[1]` `[[entity-page]]` · `` `D:\res_wiki\raw\papers\<file>.md` `` · §x.y (optional short quote)
+     `[1]` `[[entity-page]]` · `` `<WIKI_PATH>\raw\papers\<file>.md` `` · §x.y (optional short quote)
    EVERY entry must carry its own backticked absolute native path — do not write a
    bare "同上"/"same"/"ditto" that omits the path; repeat it. If a claim is
    supported by a Layer-2 page (query/comparison/concept), follow that page's
@@ -591,8 +591,8 @@ vault in Obsidian on your laptop/phone — changes appear within seconds.
   The agent should check log size during lint.
 - **Handle contradictions explicitly** — don't silently overwrite. Note both claims with dates,
   mark in frontmatter, flag for user review.
-- **Windows path resolution** — on Windows, always use native paths (e.g., `D:\res_wiki\...`)
-  with `write_file`. Bash paths like `/d/res_wiki/...` resolve inconsistently between
+- **Windows path resolution** — on Windows, always use native paths (e.g., `<WIKI_PATH>` like `D:\wiki\...`)
+  with `write_file`. Bash paths like `/d/wiki/...` resolve inconsistently between
   `terminal` (where `/d/` → `D:\`) and `write_file` (where it may become `D:\d\...`).
   Same applies to `read_file`, `search_files`, and `patch`. Use the `D:\` form for all
   wiki file operations.

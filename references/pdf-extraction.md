@@ -23,7 +23,7 @@ import fitz  # pymupdf
 import os, hashlib, re
 from datetime import datetime
 
-papers_dir = r"D:\res_wiki\raw\papers"  # use native Windows path
+papers_dir = os.path.join(os.environ["WIKI_PATH"], "raw", "papers")  # your wiki root (e.g. D:\wiki)
 
 for fname in sorted(os.listdir(papers_dir)):
     if not fname.endswith('.pdf'):
@@ -64,4 +64,4 @@ group into categories to plan which entity/concept pages to create.
 - **Always save both** the original `.pdf` AND the extracted `.md` in `raw/papers/`
 - **The `.md` is the working copy** — read this for content extraction, but never modify it
 - **SHA256 in frontmatter** covers the extracted text body only (not the frontmatter itself)
-- **Use native Windows paths** (`D:\res_wiki\...`) in write_file/read_file calls, not bash paths
+- **Use native Windows paths** (`<WIKI_PATH>\...`, your wiki root) in write_file/read_file calls, not bash paths

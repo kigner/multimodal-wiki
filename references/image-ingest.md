@@ -98,5 +98,5 @@ left un-read by default. For the **key** diagrams worth keeping: download the im
 Don't leave load-bearing figures as remote hotlinks that rot.
 
 ## Windows paths
-Use native paths (`D:\res_wiki\raw\screenshots\…`) in all `write_file` / `read_file` /
+Use native paths (`<WIKI_PATH>\raw\screenshots\…`, where `<WIKI_PATH>` is your wiki root) in all `write_file` / `read_file` /
 `vision_analyze` calls — not bash `/d/…` paths.

@@ -10,7 +10,7 @@ adds or updates the `sha256:` frontmatter field.
 ```python
 import os, re, hashlib
 
-WIKI = r"D:\res_wiki"  # use native Windows path
+WIKI = os.environ["WIKI_PATH"]  # your wiki root (native Windows path, e.g. D:\wiki)
 raw_dir = os.path.join(WIKI, 'raw')
 
 stats = {'added': 0, 'updated': 0, 'skipped': 0}
